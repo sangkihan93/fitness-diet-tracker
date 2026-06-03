@@ -31,3 +31,12 @@ Service
 Repository
     ↓
 Database
+```
+
+## Example Domains
+- Users
+- Fitness goals
+- Exercise logs
+- Meal logs
+- Nutrition targets
+- Dietary restrictions
