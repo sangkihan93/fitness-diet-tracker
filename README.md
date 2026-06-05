@@ -40,3 +40,9 @@ Database
 - Meal logs
 - Nutrition targets
 - Dietary restrictions
+
+## Documentation
+
+- [Architecture](docs/architecture.md)
+- [Accessibility Checklist](docs/accessibility-checklist.md)
+- [Architecture Decision Records](docs/adr)
