@@ -6,6 +6,20 @@ This project follows a separation-of-concerns approach.
 
 The React frontend is organized by features. UI components are responsible for presentation and user interaction, while API calls and business-specific utilities are separated into service or feature-specific files.
 
+#### Frontend API Calls
+
+Frontend API requests should go through `apps/web/src/services/apiClient.ts`.
+
+React components should avoid calling `fetch` directly. The shared API client is responsible for:
+
+- applying the base API URL
+- sending JSON request headers
+- parsing JSON responses
+- handling failed responses
+- providing a future location for authentication headers
+
+Feature-specific API functions can be added later on top of the shared API client.
+
 ### Backend
 
 The Go backend is organized around business domains such as users, goals, exercises, meals, and nutrition.
