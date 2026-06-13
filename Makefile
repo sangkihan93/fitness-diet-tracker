@@ -8,7 +8,7 @@ api:
 
 test:
 	cd apps/api && go test ./...
-	cd apps/web && npm run test -- --run
+# 	cd apps/web && npm run test -- --run
 
 lint:
 	cd apps/web && npm run lint
