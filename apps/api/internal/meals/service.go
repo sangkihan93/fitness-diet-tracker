@@ -26,7 +26,7 @@ func (s *Service) CreateMealLog(ctx context.Context, mealLog MealLog) (MealLog, 
 	}
 
 	if mealLog.CarbsG < 0 {
-		return MealLog{}, errors.New("carb must be greater than or equal to zero")
+		return MealLog{}, errors.New("carbs must be greater than or equal to zero")
 	}
 
 	if mealLog.FatG < 0 {
