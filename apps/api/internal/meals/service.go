@@ -26,15 +26,15 @@ func (s *Service) CreateMealLog(ctx context.Context, mealLog MealLog) (MealLog, 
 	}
 
 	if mealLog.CarbsG < 0 {
-		return MealLog{}, errors.New("carbs must be greater than or equal to zero")
+		return MealLog{}, errors.New("carb must be greater than or equal to zero")
 	}
 
 	if mealLog.FatG < 0 {
-		return MealLog{}, errors.New("fats must be greater than or equal to zero")
+		return MealLog{}, errors.New("fat must be greater than or equal to zero")
 	}
 
 	if mealLog.ProteinG < 0 {
-		return MealLog{}, errors.New("proteins must be greater than or equal to zero")
+		return MealLog{}, errors.New("protein must be greater than or equal to zero")
 	}
 
 	return s.repository.Create(ctx, mealLog)
