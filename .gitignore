@@ -26,6 +26,7 @@ Thumbs.db
 bin/
 *.test
 *.out
+apps/api/server
 
 # AWS / Infra
 .terraform/
