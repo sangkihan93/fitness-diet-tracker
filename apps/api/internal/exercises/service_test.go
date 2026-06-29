@@ -125,3 +125,70 @@ func TestCreateExerciseLogReturnsRepositoryError(t *testing.T) {
 		t.Errorf("expected repository error, got %v", err)
 	}
 }
+
+func TestFindExerciseLogsByUserIDSuccess(t *testing.T) {
+	repository := &fakeRepository{
+		findByUserIDFunc: func(ctx context.Context, userID string) ([]ExerciseLog, error) {
+			if userID != "user-123" {
+				t.Errorf("expected user ID %q, got %q", "user-123", userID)
+			}
+
+			return []ExerciseLog{
+				{
+					ID:              "exercise-1",
+					UserID:          "user-123",
+					Name:            "Running",
+					ExerciseType:    "cardio",
+					DurationMinutes: 30,
+				},
+			}, nil
+		},
+	}
+
+	service := NewService(repository)
+
+	logs, err := service.FindExerciseLogsByUserID(context.Background(), "user-123")
+
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+
+	if len(logs) != 1 {
+		t.Fatalf("expected 1 log, got %d", len(logs))
+	}
+
+	if logs[0].UserID != "user-123" {
+		t.Errorf("expected user ID %q, got %q", "user-123", logs[0].UserID)
+	}
+
+	if logs[0].Name != "Running" {
+		t.Errorf("expected exercise name %q, got %q", "Running", logs[0].Name)
+	}
+}
+
+func TestFindExerciseLogsByUserIDRequiresUserID(t *testing.T) {
+	repositoryCalled := false
+
+	repository := &fakeRepository{
+		findByUserIDFunc: func(ctx context.Context, userID string) ([]ExerciseLog, error) {
+			repositoryCalled = true
+			return []ExerciseLog{}, nil
+		},
+	}
+
+	service := NewService(repository)
+
+	_, err := service.FindExerciseLogsByUserID(context.Background(), "   ")
+
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+
+	if err.Error() != "user id is required" {
+		t.Errorf("expected user ID error, got %q", err.Error())
+	}
+
+	if repositoryCalled {
+		t.Error("expected repository not to be called")
+	}
+}

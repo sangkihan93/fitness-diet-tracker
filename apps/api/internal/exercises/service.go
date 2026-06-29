@@ -27,3 +27,11 @@ func (s *Service) CreateExerciseLog(ctx context.Context, log ExerciseLog) (Exerc
 
 	return s.repository.Create(ctx, log)
 }
+
+func (s *Service) FindExerciseLogsByUserID(ctx context.Context, userID string) ([]ExerciseLog, error) {
+	if strings.TrimSpace(userID) == "" {
+		return []ExerciseLog{}, errors.New("user id is required")
+	}
+
+	return s.repository.FindByUserID(ctx, userID)
+}
